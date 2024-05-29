@@ -1,0 +1,47 @@
+<!--안전하지 않은 코드-->
+<!--<html>-->
+<!--    <head>-->
+<!--        <title>Posting!</title>-->
+<!--    </head>-->
+<!--    <body>-->
+<!--        <h1>게시글 개별 페이지입니다</h1>-->
+<!--        <p>{{post.postname|safe}}</p>-->
+<!--        <p>{{post.contents|safe}}</p>-->
+<!--        <a href="../../notice/">목록</a>-->
+
+<!--        <form method="POST">-->
+<!--            {% csrf_token %}-->
+<!--            <input type="submit" value="삭제">-->
+<!--        </form>-->
+<!--        #escape 비활성화-->
+<!--        {{ my_untrusted_variable|safe }}-->
+<!--        {% autoescape off %}-->
+<!--            {{ my_untrusted_variable }}-->
+<!--        {% endautoescape %}-->
+<!--    </body>-->
+<!--</html>-->
+
+
+<!--<안전한 코드>-->
+<html>
+<head>
+    <title>Posting!</title>
+</head>
+<body>
+    <h1>게시글 개별 페이지입니다</h1>
+    <!-- postname과 contents에 대한 이스케이핑이 적용된 변수를 사용 -->
+    <p>{{ safe_postname }}</p>
+    <p>{{ safe_contents }}</p>
+    <a href="../../notice/">목록</a>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
+    <!-- 이하 코드는 안전하지 않은 코드 -->
+    {{ my_untrusted_variable|safe }}
+    {% autoescape on%} <!-- 기본값이 on이다. -->
+        {{ my_untrusted_variable }}
+    {% endautoescape %}
+</body>
+</html>
